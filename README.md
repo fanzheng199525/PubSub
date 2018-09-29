@@ -9,31 +9,35 @@
 一个类subThread，里边会创建一个Subscriber，并且有一个自定义的subscribe函数，
 每此类的一个实例调用subscribe函数，又会生成新线程，但保持是同一个subscriber
 代码如下：
-public class Subscriber extends JedisPubSub{
-
-  	public static int num = 0;
-  	public final String subId;
+//public class SubThread {
 	
-  	public Subscriber() {
-		num ++;
-		subId = "client" + num;
-	}
-	
-	public void subscribe(Subscriber sub, String...channels){
-		new Thread(new Runnable(){
-			@Override
-			public void run(){
-        Jedis jedisSub = Config.getJedis();
-				String tags = new String();
-				tags = channels[0];
-				for(int i=1; i<channels.length; i++){
-					tags = channels[i] + " , " + tags ;
-				}
-				System.out.println(subId + " subscribe channels: " + tags);
-				System.out.println("-----------------------------------------------");
-				jedisSub.subscribe(sub, channels);	
-			}
-		}).start();
-	}
-
-}
+//	public SubThread() {
+//		num ++;
+//		subId = "client" + num;
+//		sub = new Subscriber();
+//		sub.setSubId(subId);
+//	}
+//	 
+//	public void subscribe(String...channels){
+//		
+//		new Thread(new Runnable(){
+//			@Override
+//			public void run(){
+//				Jedis jedis = Config.getJedis();
+//				String tags = new String();
+//				tags = channels[0];
+//
+//				for(int i=1; i<channels.length; i++){
+//					tags = channels[i] + " , " + tags ;
+//				}
+//				
+//				System.out.println(subId + " subscribe channels: " + tags);
+//				System.out.println("-----------------------------------------------");
+//				jedis.subscribe(sub, channels);	
+//				Config.closeJedis(jedis);
+//			}
+//		}).start();		
+//	}
+//	
+//	
+//	
